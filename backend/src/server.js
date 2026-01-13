@@ -8,7 +8,7 @@ require("dotenv").config();
 const connectDB = require("./config/database");
 const errorHandler = require("./middleware/errorHandler");
 
-// Import routes
+// Routes
 const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin");
 const categoryRoutes = require("./routes/categories");
@@ -19,50 +19,83 @@ const userRoutes = require("./routes/users");
 
 const app = express();
 
-// Connect to MongoDB
+/* ===============================
+   DATABASE CONNECTION
+================================ */
 connectDB();
 
-// Security middleware
+/* ===============================
+   SECURITY MIDDLEWARE
+================================ */
 app.use(helmet());
 
-// Rate limiting
+/* ===============================
+   RATE LIMITING
+================================ */
 const limiter = rateLimit({
-  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
-  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100, // limit each IP to 100 requests per windowMs
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
   message: {
-    error: "Too many requests from this IP, please try again later.",
-  },
+    success: false,
+    message: "Too many requests, please try again later."
+  }
 });
 app.use("/api/", limiter);
 
-// CORS configuration
+/* ===============================
+   CORS CONFIGURATION (FIXED)
+================================ */
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://quiz-spark1-0.vercel.app"
+];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: (origin, callback) => {
+      // Allow Postman / server-side calls
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
 
-// Body parsing middleware
+/* ===============================
+   BODY PARSERS
+================================ */
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-// Logging middleware
+/* ===============================
+   LOGGING
+================================ */
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-// Health check endpoint
+/* ===============================
+   HEALTH CHECK
+================================ */
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     success: true,
-    message: "QuizSpark API is running!",
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV,
+    message: "QuizSpark API is running",
+    environment: process.env.NODE_ENV || "production",
+    timestamp: new Date().toISOString()
   });
 });
 
-// API routes
+/* ===============================
+   API ROUTES
+================================ */
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/categories", categoryRoutes);
@@ -71,38 +104,40 @@ app.use("/api/quizzes", quizRoutes);
 app.use("/api/leaderboard", leaderboardRoutes);
 app.use("/api/users", userRoutes);
 
-// 404 handler
+/* ===============================
+   404 HANDLER
+================================ */
 app.use("*", (req, res) => {
   res.status(404).json({
     success: false,
-    message: "API endpoint not found",
+    message: "API endpoint not found"
   });
 });
 
-// Global error handler
+/* ===============================
+   GLOBAL ERROR HANDLER
+================================ */
 app.use(errorHandler);
 
+/* ===============================
+   SERVER START
+================================ */
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => {
-  console.log(`🚀 QuizSpark API server running on port ${PORT}`);
-  console.log(`📊 Environment: ${process.env.NODE_ENV}`);
-  console.log(
-    `🌐 CORS enabled for: ${process.env.CLIENT_URL || "http://localhost:5173"}`
-  );
+  console.log(`🚀 QuizSpark API running on port ${PORT}`);
 });
 
-// Handle unhandled promise rejections
-process.on("unhandledRejection", (err, promise) => {
-  console.log(`❌ Unhandled Rejection: ${err.message}`);
-  server.close(() => {
-    process.exit(1);
-  });
+/* ===============================
+   PROCESS ERROR HANDLING
+================================ */
+process.on("unhandledRejection", (err) => {
+  console.error("❌ Unhandled Rejection:", err.message);
+  server.close(() => process.exit(1));
 });
 
-// Handle uncaught exceptions
 process.on("uncaughtException", (err) => {
-  console.log(`❌ Uncaught Exception: ${err.message}`);
+  console.error("❌ Uncaught Exception:", err.message);
   process.exit(1);
 });
 
