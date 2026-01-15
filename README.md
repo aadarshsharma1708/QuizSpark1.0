@@ -1,4 +1,5 @@
 # QuizSpark 🚀
+**Go Live** - https://quiz-spark1-0.vercel.app/
 
 **Full-Stack Quiz Application**
 
@@ -119,8 +120,9 @@ npm run dev
 cd frontend
 npm run dev
 ```
-📚 API Endpoints
-Authentication
+---
+## 📚 API Endpoints
+### Authentication
 
 - POST /api/auth/register
 
@@ -130,7 +132,7 @@ Authentication
 
 - PUT /api/auth/profile
 
-Categories
+### Categories
 
 - GET /api/categories
 
@@ -140,7 +142,7 @@ Categories
 
 - DELETE /api/categories/:id (Admin)
 
-Questions
+### Questions
 
 - GET /api/questions
 
@@ -150,7 +152,7 @@ Questions
 
 - DELETE /api/questions/:id (Admin)
 
-Quizzes
+### Quizzes
 
 - POST /api/quizzes/start
 
@@ -160,13 +162,14 @@ Quizzes
 
 - GET /api/quizzes/:id/review
 
-Leaderboard
+### Leaderboard
 
 - GET /api/leaderboard/global
 
 - GET /api/leaderboard/category/:id
-
-🧭 Roadmap
+  
+---
+## 🧭 Roadmap
 
  - Project setup
 
@@ -179,8 +182,9 @@ Leaderboard
  - Analytics & leaderboards
 
  - Production deployment
-
-🤝 Contributing
+   
+--- 
+## 🤝 Contributing
 
 - Fork the repository
 
@@ -191,7 +195,15 @@ Leaderboard
 - Push to the branch
 
 - Open a Pull Request
-
-📄 License
+  
+---
+## 📄 License
 
 This project is licensed under the MIT License.
+
+---
+## 📞 Contact
+
+aadarshsharma.1708@gmail.com
+<br>
+Project Link: https://github.com/aadarshsharma1708/QuizSpark1.0
