@@ -1,4 +1,5 @@
-# QuizSpark 🚀  
+# QuizSpark 🚀
+
 **Full-Stack Quiz Application**
 
 A modern, scalable quiz application built with **React**, **Node.js**, and **MongoDB**.
@@ -7,78 +8,67 @@ A modern, scalable quiz application built with **React**, **Node.js**, and **Mon
 
 ## 🚀 Features
 
-- 🔐 JWT-based authentication (login & signup)
-- 📚 Dynamic quiz categories
-- ✏️ Full CRUD operations for questions
-- 🎯 Interactive quiz gameplay
-- 📊 Score tracking and analytics
-- 🏆 Global & category-wise leaderboards
-- 🔍 Review mode with explanations
-- 🧑‍💼 Admin panel for content management
-- 📱 Fully responsive UI (mobile-first)
-- 🎮 Gamification features (progress & stats)
+- 🔐 **JWT-based authentication** (login & signup)
+- 📚 **Dynamic quiz categories**
+- ✏️ **Full CRUD operations** for questions
+- 🎯 **Interactive quiz gameplay**
+- 📊 **Score tracking and analytics**
+- 🏆 **Global & category-wise leaderboards**
+- 🔍 **Review mode** with explanations
+- 🧑‍💼 **Admin panel** for content management
+- 📱 **Fully responsive UI** (mobile-first)
+- 🎮 **Gamification features** (progress & stats)
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- React 18 (Vite)
-- Tailwind CSS
-- Redux Toolkit
-- React Router
-- Axios
-- Chart.js
+- **Framework:** React 18 (Vite)
+- **Styling:** Tailwind CSS
+- **State Management:** Redux Toolkit / Context API
+- **Routing:** React Router DOM
+- **HTTP Client:** Axios
+- **Visualization:** Chart.js
 
 ### Backend
-- Node.js
-- Express.js
-- MongoDB Atlas
-- Mongoose
-- JWT Authentication
-- bcryptjs
-- express-validator
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **Database:** MongoDB Atlas
+- **ODM:** Mongoose
+- **Auth:** JWT & bcryptjs
+- **Validation:** express-validator
 
 ### Deployment
-- Frontend: Vercel / Netlify
-- Backend: Render / Railway
-- Database: MongoDB Atlas
+- **Frontend:** Vercel / Netlify
+- **Backend:** Render / Railway
+- **Database:** MongoDB Atlas
 
 ---
 
 ## 📁 Project Structure
+
+```bash
 QuizSpark/
-├── frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ ├── pages/
-│ │ ├── store/
-│ │ ├── services/
-│ │ ├── hooks/
-│ │ ├── utils/
-│ │ └── styles/
-│ └── package.json
+├── frontend/          # React Application
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── context/
+│   │   └── utils/
+│   └── package.json
 │
-├── backend/
-│ ├── src/
-│ │ ├── controllers/
-│ │ ├── models/
-│ │ ├── routes/
-│ │ ├── middleware/
-│ │ ├── utils/
-│ │ └── config/
-│ └── package.json
+├── backend/           # Node.js API
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── middleware/
+│   │   └── config/
+│   └── package.json
 │
-├── docs/
-│ ├── api.md
-│ └── deployment.md
-│
-├── .gitignore
 └── README.md
-
-
----
-
+```
 ## 🚦 Getting Started
 
 ### Prerequisites
@@ -88,35 +78,39 @@ QuizSpark/
 
 ---
 
-### Installation
+## ⚙️ Installation
 
-#### 1️⃣ Clone the repository
+### 1️⃣ Clone the repository
 ```bash
 git clone <repository-url>
 cd QuizSpark
-
+```
 2️⃣ Install dependencies
-# Backend
+```bash
+# Backend Setup
 cd backend
 npm install
 
-# Frontend
+# Frontend Setup
+
 cd ../frontend
 npm install
-
-3️⃣ Environment Setup
-Backend (backend/.env)
+```
+🔐 Environment Setup
+```bash
+# Backend (backend/.env)
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
 
-Frontend (frontend/.env)
+# Frontend (frontend/.env)
 VITE_API_URL=https://your-backend-url.onrender.com
+```
 
+⚠️ Never commit .env files to GitHub
 
-⚠️ Never commit .env files
-
-4️⃣ Run the project locally
+▶️ Running the Project Locally
+```bash
 # Start backend
 cd backend
 npm run dev
@@ -124,81 +118,80 @@ npm run dev
 # Start frontend (new terminal)
 cd frontend
 npm run dev
-
+```
 📚 API Endpoints
 Authentication
 
-POST /api/auth/register
+- POST /api/auth/register
 
-POST /api/auth/login
+- POST /api/auth/login
 
-GET /api/auth/profile
+- GET /api/auth/profile
 
-PUT /api/auth/profile
+- PUT /api/auth/profile
 
 Categories
 
-GET /api/categories
+- GET /api/categories
 
-POST /api/categories (Admin)
+- POST /api/categories (Admin)
 
-PUT /api/categories/:id (Admin)
+- PUT /api/categories/:id (Admin)
 
-DELETE /api/categories/:id (Admin)
+- DELETE /api/categories/:id (Admin)
 
 Questions
 
-GET /api/questions
+- GET /api/questions
 
-POST /api/questions (Admin)
+- POST /api/questions (Admin)
 
-PUT /api/questions/:id (Admin)
+- PUT /api/questions/:id (Admin)
 
-DELETE /api/questions/:id (Admin)
+- DELETE /api/questions/:id (Admin)
 
 Quizzes
 
-POST /api/quizzes/start
+- POST /api/quizzes/start
 
-POST /api/quizzes/submit
+- POST /api/quizzes/submit
 
-GET /api/quizzes/history
+- GET /api/quizzes/history
 
-GET /api/quizzes/:id/review
+- GET /api/quizzes/:id/review
 
 Leaderboard
 
-GET /api/leaderboard/global
+- GET /api/leaderboard/global
 
-GET /api/leaderboard/category/:id
+- GET /api/leaderboard/category/:id
 
 🧭 Roadmap
 
- Project setup
+ - Project setup
 
- Authentication & authorization
+ - Authentication system
 
- Quiz gameplay logic
+ - Quiz gameplay logic
 
- Admin dashboard
+ - Admin dashboard
 
- Analytics & leaderboard
+ - Analytics & leaderboards
 
- Production deployment
+ - Production deployment
 
 🤝 Contributing
 
-Fork the repository
+- Fork the repository
 
-Create a feature branch
+- Create a feature branch (git checkout -b feature/your-feature)
 
-Commit your changes
+- Commit your changes
 
-Push to your branch
+- Push to the branch
 
-Open a Pull Request
+- Open a Pull Request
 
 📄 License
 
 This project is licensed under the MIT License.
-
